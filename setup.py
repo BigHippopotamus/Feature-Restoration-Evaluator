@@ -5,13 +5,13 @@ REQUIREMENTS = [
     'scikit-learn',
     'tqdm',
     'uniseg',
-    'jiwer==2.5.1',
+    'jiwer',
     'Jinja2',
 ]
 
 setup(
     name='fre',
-    version='1.1',
+    version='1.1.1',
     description='',
     author='Laurence Dyer',
     author_email='ljdyer@gmail.com',
