@@ -6,8 +6,7 @@ WARNING_NO_JIWER = """Could not import jiwer library. You will not be able to \
 show word error rate info."""
 
 try:
-    from jiwer.measures import _get_operation_counts, _preprocess
-    from jiwer.transformations import wer_default
+    import jiwer
 except ModuleNotFoundError:
     print(WARNING_NO_JIWER)
 
@@ -28,22 +27,11 @@ def wer_info(ref: str, hyp: str) -> dict:
 
 
 # ====================
-def get_num_edits(ref: str, hyp: str) -> dict:
-    """Get the minimum numbers of word edits required to get from
+def get_num_edits(ref: str, hyp: str) -> int:
+    """Get the minimum number of word edits required to get from
     hypothesis to reference string."""
-
-    # jiwer library _preprocess with wer_default strips leading and
-    # trailing whitespace, splits on space characters, maps words
-    # to unique characters and joins together as string so that
-    # python-Levenshtein library can be used to calculate WER
-    ref_, hyp_ = _preprocess(ref, hyp, wer_default, wer_default)
-
-    # _get_operation_counts returns hits, deletions, substitions,
-    # and insertions
-    _, S, D, I = _get_operation_counts(ref_[0], hyp_[0])  # noqa: E741
-    edits = sum([S, D, I])
-
-    return edits
+    output = jiwer.process_words(ref, hyp)
+    return output.substitutions + output.deletions + output.insertions
 
 
 # ====================
