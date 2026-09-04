@@ -11,7 +11,7 @@ REQUIREMENTS = [
 
 setup(
     name='fre',
-    version='1.1.1',
+    version='1.1.2',
     description='',
     author='Laurence Dyer',
     author_email='ljdyer@gmail.com',
